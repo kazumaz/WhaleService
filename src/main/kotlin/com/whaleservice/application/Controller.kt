@@ -39,16 +39,25 @@ class HelloController {
         @RequestMapping
         class RedisController {
 
+
+
             @Autowired
             lateinit var redisRepository: RedisUserRepositoryImpl
 
             @Autowired
             lateinit var usermanagement: UserService
 
+            @GetMapping("/kazumaz") //very good method!!
+            fun test(): String{
+
+                val email: Email = Email("test")
+                val password: Password = Password("12345")
+                usermanagement.registUser(email, password)
+                return("testtest")
+            }
+
             @GetMapping("/set2")
             fun registUser(@RequestBody loginform: Loginform) {
-                println(loginform.email)
-                println(loginform.password)
                 usermanagement.registUser(Email(loginform.email), Password(loginform.password))
             }
 

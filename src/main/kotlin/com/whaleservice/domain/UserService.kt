@@ -12,6 +12,7 @@ class UserService {
     lateinit var userStore: UserRepository
 
     fun registUser(email: Email, password: Password) {
+
         userStore.store( User("hogehoge", 0, password, email))
     }
 

@@ -9,9 +9,12 @@ class UserService {
     @Autowired
     lateinit var userStore: UserRepository
 
-    fun registUser(email: Email, password: Password) {
+    fun registUser(userid: String, username: String, email: String, password: String) {
+        userStore.store( User(userid, username, password, email))
+    }
 
-        userStore.store( User("hogehoge", "12345", password, email))
+    fun findall () : MutableList<User>? {
+        return userStore.getAll()
     }
 
 }

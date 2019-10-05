@@ -22,10 +22,10 @@
         <tbody>
         <tr th:each="player:${players}" th:object="${player}">
             <!-- ③ -->
-            <td th:text="*{id}"></td>
-            <td th:text="*{name}"></td>
-            <td th:text="*{age}"></td>
-            <td th:text="*{team}"></td>
+            <td th:text="*{username}"></td>
+            <td th:text="*{userid}"></td>
+            <td th:text="*{email}"></td>
+            <td th:text="*{password}"></td>
             <!-- ④ -->
             <td><a class="btn btn-default btn-xs" th:href="@{/players/{id}(id=*{id})}">参照</a></td>
             <td><a class="btn btn-default btn-xs" th:href="@{/players/{id}/edit(id=*{id})}">編集</a></td>
@@ -38,7 +38,7 @@
         </tr>
         </tbody>
     </table>
-    <a class="btn btn-default" href="/new">新規作成</a>
+    <a class="btn btn-default" href="/players/new">新規作成</a>
 </div>
 </body>
 </html>

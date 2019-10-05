@@ -47,9 +47,7 @@ class HelloController {
         @GetMapping("/kazumaz") //very good method!!
         fun test(): String {
 
-            val email: Email = Email("test")
-            val password: Password = Password("12345")
-            usermanagement.registUser(email, password)
+            usermanagement.registUser("1", "2", "email","password")
             return ("testtest")
         }
 
@@ -58,22 +56,18 @@ class HelloController {
 
             val email: Email = Email("test")
             val password: Password = Password("12345")
-            usermanagement.registUser(email, password)
+            usermanagement.registUser("1", "2", "email","password")
             return ("new")
         }
 
-        @GetMapping("/set2")
-        fun registUser(@RequestBody loginform: Loginform) {
-            usermanagement.registUser(Email(loginform.email), Password(loginform.password))
-        }
 
-        @GetMapping("/set")
+        @GetMapping("/set") //this is a test api
         fun getTop(): String {
             redisRepository.redisCommands.setex("foo", 100, "bar")
             redisRepository.redisCommands.setex("kazuma", 100, "bar")
             redisRepository.redisCommands.setex("yu", 100, "bar")
-            return "test"
             println("testtest")
+            return "test"
         }
     }
 
@@ -87,11 +81,8 @@ class HelloController {
     @RequestMapping("/players") // ①
     class PlayerController(private val userService: UserService) {
         @GetMapping
-//        // ②
         fun index(model: Model): String {
-            // ③
-//            model.addAttribute("players", playerService.findAll())
-//            // ④
+            model.addAttribute("players", userService.findall())
             return "index"
         }
 //
@@ -114,16 +105,16 @@ class HelloController {
 //        }
 //
         @PostMapping
-        // ⑥
         fun create(@ModelAttribute user: User): String {
-
-            userService.registUser(user.email, user.password)
-            // ⑦
+    if (user.userid != null && user.username != null && user.email != null && user.password != null){
+    userService.registUser(user.userid!!, user.username!!, user.email, user.password)
+}
+            userService.findall()
             return "redirect:/players"
         }
 //
 //        @PutMapping("{id}")
-//        fun update(@PathVariable id: Long, @ModelAttribute player: Player): String {
+    //        fun update(@PathVariable id: Long, @ModelAttribute player: Player): String {
 //            playerService.save(player.copy(id = id))
 //            return "redirect:/players"
 //        }

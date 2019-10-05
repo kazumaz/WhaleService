@@ -17,7 +17,7 @@ class UserRegisterUsecase {
     lateinit var userStore: UserRepository
 
     fun registUser(email: Email, password: Password) {
-        userStore.store(User("hogehoge", "12345", password, email))
+        userStore.store(User("hogehoge", "12345", "password","email"))
     }
 
     fun checkExistUser(userEntyty: UserEntity): Existence {

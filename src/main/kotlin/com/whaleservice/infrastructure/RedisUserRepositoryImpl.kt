@@ -35,8 +35,11 @@ class RedisUserRepositoryImpl (redisProperties: RedisProperties): UserRepository
     }
 
     override fun store(user: User) {
-        val nextid = if(user.userid != 0L) user.userid else this.redisCommands.incr("${USERID}")
+//        val nextid = if(user.userid != 0L) user.userid else this.redisCommands.incr("${USERID}")
+//        this.redisCommands.hmset("${USERNAME_PREFIX}${user.username}", mapOf("email" to user.email.toString(), "password" to user.password.toString(), "userid" to "${nextid}"))
+        val nextid = 11
         this.redisCommands.hmset("${USERNAME_PREFIX}${user.username}", mapOf("email" to user.email.toString(), "password" to user.password.toString(), "userid" to "${nextid}"))
+
     }
     override fun findOneById(userid: Long): User {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

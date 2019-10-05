@@ -1,0 +1,17 @@
+spring.redis:
+ host: localhost
+ port: 6379
+ password: null
+ database: 0
+
+colors:
+ red: あか
+ blue: あお
+
+fruits:
+ prices:
+  apple: 150
+  orange: 100
+
+redis:
+ url: "redis://localhost:6379/0"

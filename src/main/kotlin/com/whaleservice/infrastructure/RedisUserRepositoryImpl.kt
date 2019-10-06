@@ -65,41 +65,30 @@ class RedisUserRepositoryImpl(redisProperties: RedisProperties) : UserRepository
 
             //各キーで、ハッシュマップを取得する。
             var userList: MutableMap<String, String>? = this.redisCommands.hgetall(item)
-            println(userList)
 
             if (userList != null) { //ハッシュマップが取得できた場合
 
                 var userid: String? = userList.get("userid")
-                println(userid)
                 if (userid != null) {
                     user.userid = userid
-                    println(user.userid)
                 }
 
                 var username: String? = userList.get("username")
-                println(username)
                 if (username != null) {
                     user.username = username
-                    println(user.username)
                 }
 
                 var email: String? = userList.get("email")
-                println(email)
                 if (userid != null) {
                     user.email = email
-                    println(user.email)
                 }
 
                 var password: String? = userList.get("password")
-                println(password)
                 if (userid != null) {
                     user.password = password
-                    println(user.password)
                 }
 
-                if (listUser != null) {
-                    listUser.add(user)
-                }
+                listUser?.add(user)
             }
         }
         return listUser

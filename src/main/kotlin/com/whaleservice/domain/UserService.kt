@@ -16,9 +16,6 @@ class UserService {
     fun findall () : MutableList<User>? {
 
         var userList : MutableList<User>? = userStore.getAll()
-        println("---------")
-        println(userList)
-        println("---------")
         return userList
     }
 

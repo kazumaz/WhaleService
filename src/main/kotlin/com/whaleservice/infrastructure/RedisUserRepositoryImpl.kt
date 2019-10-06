@@ -52,9 +52,9 @@ class RedisUserRepositoryImpl(redisProperties: RedisProperties) : UserRepository
     }
 
     override fun getAll(): MutableList<User>? {
-        var listUser : MutableList<User>? = mutableListOf()
+        var listUser: MutableList<User>? = mutableListOf()
 
-        var keysList : List<String> = this.redisCommands.keys("*")
+        var keysList: List<String> = this.redisCommands.keys("*")
 
         println("キーリスト表示")
         println(keysList)
@@ -70,28 +70,28 @@ class RedisUserRepositoryImpl(redisProperties: RedisProperties) : UserRepository
             if (userList != null) { //ハッシュマップが取得できた場合
 
                 var userid: String? = userList.get("userid")
-                println (userid)
+                println(userid)
                 if (userid != null) {
-                        user.userid = userid
-                        println(user.userid)
-                    }
+                    user.userid = userid
+                    println(user.userid)
+                }
 
                 var username: String? = userList.get("username")
-                println (username)
+                println(username)
                 if (username != null) {
                     user.username = username
                     println(user.username)
                 }
 
                 var email: String? = userList.get("email")
-                println (email)
+                println(email)
                 if (userid != null) {
                     user.email = email
                     println(user.email)
                 }
 
                 var password: String? = userList.get("password")
-                println (password)
+                println(password)
                 if (userid != null) {
                     user.password = password
                     println(user.password)
@@ -102,25 +102,9 @@ class RedisUserRepositoryImpl(redisProperties: RedisProperties) : UserRepository
                 }
             }
         }
-        println("~~~~~~~~~~~~~~~~")
-        println(listUser)
-        println("~~~~~~~~~~~~~~~~")
         return listUser
-        }
+    }
 
-
-
-
-//        var userList : List<User>
-//
-//        var test :  MutableMap<String, String>? = this.redisCommands.hgetall("item")
-//
-//        test.USERID
-
-
-
-
-//        this.redisCommands.hgetall()
 
     override fun findOneById(userid: Long): User {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

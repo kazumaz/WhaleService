@@ -17,6 +17,7 @@ import org.springframework.beans.factory.annotation.Autowired
 @Controller
 class HelloController {
 
+    //Application.ymlの設定値を取ってくるサンプル
     @RestController
     class Controller(
             val colorProperties: PlatformProperties,
@@ -37,6 +38,7 @@ class HelloController {
     @RestController
     @RequestMapping
     class RedisController {
+        //RestAPIで、Redisにデータをセットするサンプル
 
         @Autowired
         lateinit var redisRepository: RedisUserRepositoryImpl
@@ -44,57 +46,37 @@ class HelloController {
         @Autowired
         lateinit var usermanagement: UserService
 
-        @GetMapping("/kazumaz") //very good method!!
-        fun test(): String {
-
-            usermanagement.registUser("1", "2", "email","password")
-            return ("testtest")
-        }
-
-        @GetMapping("/kazumaz2") //very good method!!
-        fun test2(): String {
-
-            val email: Email = Email("test")
-            val password: Password = Password("12345")
-            usermanagement.registUser("1", "2", "email","password")
-            return ("new")
-        }
-
-
         @GetMapping("/set") //this is a test api
         fun getTop(): String {
             redisRepository.redisCommands.setex("foo", 100, "bar")
-            redisRepository.redisCommands.setex("kazuma", 100, "bar")
-            redisRepository.redisCommands.setex("yu", 100, "bar")
-            println("testtest")
+            redisRepository.redisCommands.setex("oyoyo", 100, "bar")
+            redisRepository.redisCommands.setex("boo", 100, "bar")
             return "test"
         }
     }
-
-
 }
-
-
-
 
     @Controller
     @RequestMapping("/players") // ①
     class PlayerController(private val userService: UserService) {
         @GetMapping
         fun index(model: Model): String {
-
             var userList : MutableList<User>? = userService.findall()
-            println("===========")
-            println(userList)
-            println("===========")
             model.addAttribute("players", userList)
             return "index"
         }
-//
+
         @GetMapping("new")
         fun newPlayer(): String {
-
             return "new"
+        }
+
+        @PostMapping
+        fun create(@ModelAttribute user: User): String {
+            if (user.userid != null && user.username != null && user.email != null && user.password != null){
+                userService.registUser(user.userid!!, user.username!!, user.email!!, user.password!!)
+            }
+            return "redirect:/players"
         }
 //
 //        @GetMapping("{id}/edit")
@@ -110,15 +92,7 @@ class HelloController {
 //            return "players/show"
 //        }
 //
-        @PostMapping
-        fun create(@ModelAttribute user: User): String {
-    if (user.userid != null && user.username != null && user.email != null && user.password != null){
-    userService.registUser(user.userid!!, user.username!!, user.email!!, user.password!!)
-}
-            var userList : MutableList<User>? = userService.findall()
 
-            return "redirect:/players"
-        }
 //
 //        @PutMapping("{id}")
     //        fun update(@PathVariable id: Long, @ModelAttribute player: Player): String {

@@ -82,12 +82,18 @@ class HelloController {
     class PlayerController(private val userService: UserService) {
         @GetMapping
         fun index(model: Model): String {
-            model.addAttribute("players", userService.findall())
+
+            var userList : MutableList<User>? = userService.findall()
+            println("===========")
+            println(userList)
+            println("===========")
+            model.addAttribute("players", userList)
             return "index"
         }
 //
         @GetMapping("new")
         fun newPlayer(): String {
+
             return "new"
         }
 //
@@ -107,9 +113,10 @@ class HelloController {
         @PostMapping
         fun create(@ModelAttribute user: User): String {
     if (user.userid != null && user.username != null && user.email != null && user.password != null){
-    userService.registUser(user.userid!!, user.username!!, user.email, user.password)
+    userService.registUser(user.userid!!, user.username!!, user.email!!, user.password!!)
 }
-            userService.findall()
+            var userList : MutableList<User>? = userService.findall()
+
             return "redirect:/players"
         }
 //

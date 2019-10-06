@@ -41,40 +41,70 @@ class RedisUserRepositoryImpl(redisProperties: RedisProperties) : UserRepository
     override fun store(user: User) {
 //        val nextid = if(user.userid != 0L) user.userid else this.redisCommands.incr("${USERID}")
 //        this.redisCommands.hmset("${USERNAME_PREFIX}${user.username}", mapOf("email" to user.email.toString(), "password" to user.password.toString(), "userid" to "${nextid}"))
-        val nextid = 11
+//        val nextid = 11
+//        this.redisCommands.hmset("${USERNAME_PREFIX}${user.username}",
+//                mapOf("userid" to user.userid, "username" to user.username,
+//                        "email" to user.email.toString(), "password" to user.password.toString(), "userid" to "${nextid}"))
         this.redisCommands.hmset("${USERNAME_PREFIX}${user.username}",
-                mapOf("userid" to user.userid, "username" to user.username,
-                        "email" to user.email.toString(), "password" to user.password.toString(), "userid" to "${nextid}"))
+                mapOf("username" to user.username,"userid" to user.userid,
+                        "email" to user.email.toString(), "password" to user.password.toString()))
+
     }
 
-    var listUser : MutableList<User>? = null
     override fun getAll(): MutableList<User>? {
+        var listUser : MutableList<User>? = mutableListOf()
+
         var keysList : List<String> = this.redisCommands.keys("*")
+
+        println("キーリスト表示")
+        println(keysList)
+
         for (item in keysList) {
-            var user: User? = null
+            var user: User = User()
             println(item)
+
+            //各キーで、ハッシュマップを取得する。
             var userList: MutableMap<String, String>? = this.redisCommands.hgetall(item)
             println(userList)
-            if (userList != null) {
-//                println(userList.get("userid"))
-                if (userList.get("userid") != null) {
-                    if (user != null) {
-                        user.userid = userList.get("userid")!!.toString()
-                    }
-                }
 
-                if (userList.get("username") != null) {
-                    if (user != null) {
-                        user.username = userList.get("username")!!.toString()
+            if (userList != null) { //ハッシュマップが取得できた場合
+
+                var userid: String? = userList.get("userid")
+                println (userid)
+                if (userid != null) {
+                        user.userid = userid
+                        println(user.userid)
                     }
 
+                var username: String? = userList.get("username")
+                println (username)
+                if (username != null) {
+                    user.username = username
+                    println(user.username)
                 }
 
-                if (user != null) {
-                    listUser!!.add(user)
+                var email: String? = userList.get("email")
+                println (email)
+                if (userid != null) {
+                    user.email = email
+                    println(user.email)
+                }
+
+                var password: String? = userList.get("password")
+                println (password)
+                if (userid != null) {
+                    user.password = password
+                    println(user.password)
+                }
+
+                if (listUser != null) {
+                    listUser.add(user)
                 }
             }
         }
+        println("~~~~~~~~~~~~~~~~")
+        println(listUser)
+        println("~~~~~~~~~~~~~~~~")
         return listUser
         }
 

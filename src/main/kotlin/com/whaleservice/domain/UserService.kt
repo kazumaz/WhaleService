@@ -10,11 +10,16 @@ class UserService {
     lateinit var userStore: UserRepository
 
     fun registUser(userid: String, username: String, email: String, password: String) {
-        userStore.store( User(userid, username, password, email))
+        userStore.store( User(username, userid, password, email))
     }
 
     fun findall () : MutableList<User>? {
-        return userStore.getAll()
+
+        var userList : MutableList<User>? = userStore.getAll()
+        println("---------")
+        println(userList)
+        println("---------")
+        return userList
     }
 
 }

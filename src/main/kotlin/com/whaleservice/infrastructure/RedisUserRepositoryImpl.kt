@@ -46,10 +46,54 @@ class RedisUserRepositoryImpl(redisProperties: RedisProperties) : UserRepository
 //                mapOf("userid" to user.userid, "username" to user.username,
 //                        "email" to user.email.toString(), "password" to user.password.toString(), "userid" to "${nextid}"))
         this.redisCommands.hmset("${USERNAME_PREFIX}${user.username}",
-                mapOf("username" to user.username,"userid" to user.userid,
+                mapOf("username" to user.username, "userid" to user.userid,
                         "email" to user.email.toString(), "password" to user.password.toString()))
 
     }
+
+//    override fun getAll(): MutableList<User>? {
+//        var listUser: MutableList<User>? = mutableListOf()
+//
+//        var keysList: List<String> = this.redisCommands.keys("*")
+//
+//        println("キーリスト表示")
+//        println(keysList)
+//
+//        for (item in keysList) {
+//            var user: User = User()
+//            println(item)
+//
+//            //各キーで、ハッシュマップを取得する。
+//            var userList: MutableMap<String, String>? = this.redisCommands.hgetall(item)
+//
+//            if (userList != null) { //ハッシュマップが取得できた場合
+//
+//                var userid: String? = userList.get("userid")
+//                if (userid != null) {
+//                    user.userid = userid
+//                }
+//
+//                var username: String? = userList.get("username")
+//                if (username != null) {
+//                    user.username = username
+//                }
+//
+//                var email: String? = userList.get("email")
+//                if (userid != null) {
+//                    user.email = email
+//                }
+//
+//                var password: String? = userList.get("password")
+//                if (userid != null) {
+//                    user.password = password
+//                }
+//
+//                listUser?.add(user)
+//            }
+//        }
+//        return listUser
+//    }
+
 
     override fun getAll(): MutableList<User>? {
         var listUser: MutableList<User>? = mutableListOf()
@@ -68,27 +112,13 @@ class RedisUserRepositoryImpl(redisProperties: RedisProperties) : UserRepository
 
             if (userList != null) { //ハッシュマップが取得できた場合
 
-                var userid: String? = userList.get("userid")
-                if (userid != null) {
-                    user.userid = userid
-                }
-
-                var username: String? = userList.get("username")
-                if (username != null) {
-                    user.username = username
-                }
-
-                var email: String? = userList.get("email")
-                if (userid != null) {
-                    user.email = email
-                }
-
-                var password: String? = userList.get("password")
-                if (userid != null) {
-                    user.password = password
-                }
+                user.userid = checkNotNull(userList.get("userid"))
+                user.username = checkNotNull(userList.get("username"))
+                user.email = checkNotNull(userList.get("email"))
+                user.password = checkNotNull(userList.get("password"))
 
                 listUser?.add(user)
+
             }
         }
         return listUser
@@ -99,7 +129,7 @@ class RedisUserRepositoryImpl(redisProperties: RedisProperties) : UserRepository
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    override  fun findOneByEmail(email: Email): User {
+    override fun findOneByEmail(email: Email): User {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

@@ -59,6 +59,11 @@ class HelloController {
     @Controller
     @RequestMapping("/players") // ①
     class PlayerController(private val userService: UserService) {
+
+
+        @Autowired
+        lateinit var redisRepository: RedisUserRepositoryImpl
+
         @GetMapping
         fun index(model: Model): String {
             var userList : MutableList<User>? = userService.findall()
@@ -86,11 +91,11 @@ class HelloController {
 //            return "players/edit"
 //        }
 //
-//        @GetMapping("{id}")
-//        fun show(@PathVariable id: Long, model: Model): String {
-//            model.addAttribute("player", playerService.findOne(id));
-//            return "players/show"
-//        }
+        @GetMapping("{id}")
+        fun show(@PathVariable id: String, model: Model): String {
+            model.addAttribute("player", redisRepository.findOneById(id));
+            return "players/show"
+        }
 //
 
 //

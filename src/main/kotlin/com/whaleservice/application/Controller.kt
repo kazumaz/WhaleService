@@ -34,7 +34,6 @@ class HelloController {
         }
     }
 
-
     @RestController
     @RequestMapping
     class RedisController {
@@ -56,34 +55,35 @@ class HelloController {
     }
 }
 
-    @Controller
-    @RequestMapping("/players") // ①
-    class PlayerController(private val userService: UserService) {
+@Controller
+@RequestMapping("/players") // ①
+class PlayerController(private val userService: UserService) {
 
 
-        @Autowired
-        lateinit var redisRepository: RedisUserRepositoryImpl
+    @Autowired
+    lateinit var redisRepository: RedisUserRepositoryImpl
 
-        @GetMapping
-        fun index(model: Model): String {
-            var userList : MutableList<User>? = userService.findall()
-            model.addAttribute("players", userList)
-            return "index"
+    @GetMapping
+    fun index(model: Model): String {
+        var userList: MutableList<User>? = userService.findall()
+        model.addAttribute("players", userList)
+        return "index"
+    }
+
+    @GetMapping("new")
+    fun newPlayer(): String {
+        return "new"
+    }
+
+    @PostMapping
+    fun create(@ModelAttribute user: User): String {
+        if (user.userid != null && user.username != null && user.email != null && user.password != null) {
+            userService.registUser(user.userid!!, user.username!!, user.email!!, user.password!!)
         }
+        return "redirect:/players"
+    }
 
-        @GetMapping("new")
-        fun newPlayer(): String {
-            return "new"
-        }
-
-        @PostMapping
-        fun create(@ModelAttribute user: User): String {
-            if (user.userid != null && user.username != null && user.email != null && user.password != null){
-                userService.registUser(user.userid!!, user.username!!, user.email!!, user.password!!)
-            }
-            return "redirect:/players"
-        }
-//
+    //
 //        @GetMapping("{id}/edit")
 //        // ⑤
 //        fun edit(@PathVariable id: Long, model: Model): String {
@@ -91,11 +91,11 @@ class HelloController {
 //            return "players/edit"
 //        }
 //
-        @GetMapping("{id}")
-        fun show(@PathVariable id: String, model: Model): String {
-            model.addAttribute("player", redisRepository.findOneById(id));
-            return "players/show"
-        }
+    @GetMapping("{userid}")
+    fun show(@PathVariable userid: String, model: Model): String {
+        model.addAttribute("player", redisRepository.findOneById(userid));
+        return "show"
+    }
 //
 
 //

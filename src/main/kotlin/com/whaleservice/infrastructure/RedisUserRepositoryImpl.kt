@@ -39,7 +39,7 @@ class RedisUserRepositoryImpl(redisProperties: RedisProperties) : UserRepository
     }
 
     override fun store(user: User) {
-        this.redisCommands.hmset("${USERNAME_PREFIX}${user.username}",
+        this.redisCommands.hmset("${USERNAME_PREFIX}${user.userid}",
                 mapOf("username" to user.username, "userid" to user.userid,
                         "email" to user.email.toString(), "password" to user.password.toString()))
 
@@ -88,7 +88,6 @@ class RedisUserRepositoryImpl(redisProperties: RedisProperties) : UserRepository
 //        return listUser
 //    }
 
-
     override fun getAll(): MutableList<User>? {
         val listUser: MutableList<User>? = mutableListOf()
         val keysList: List<String> = this.redisCommands.keys("*")
@@ -112,11 +111,9 @@ class RedisUserRepositoryImpl(redisProperties: RedisProperties) : UserRepository
         return listUser
     }
 
-
     override fun findOneById(userid: String): User {
 
         val user: User = User()
-
         val getkey: String = "${USERNAME_PREFIX}${userid}"
         val userList: MutableMap<String, String>? = this.redisCommands.hgetall(getkey)
 
@@ -127,9 +124,7 @@ class RedisUserRepositoryImpl(redisProperties: RedisProperties) : UserRepository
             user.email = checkNotNull(userList["email"])
             user.password = checkNotNull(userList["password"])
         }
-
         return user
-
     }
 
     override fun findOneByEmail(email: String): User {

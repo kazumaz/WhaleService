@@ -1,8 +1,6 @@
 package com.whaleservice.infrastructure
 
-import com.whaleservice.domain.Email
-import com.whaleservice.domain.User
-import com.whaleservice.domain.UserRepository
+import com.whaleservice.domain.entity.UserEntity
 import io.lettuce.core.RedisClient
 import io.lettuce.core.api.StatefulRedisConnection
 import io.lettuce.core.api.sync.RedisCommands
@@ -38,10 +36,10 @@ class RedisUserRepositoryImpl(redisProperties: RedisProperties) : UserRepository
         this.redisClient.shutdown()
     }
 
-    override fun store(user: User) {
-        this.redisCommands.hmset("${USERNAME_PREFIX}${user.userid}",
-                mapOf("username" to user.username, "userid" to user.userid,
-                        "email" to user.email.toString(), "password" to user.password.toString()))
+    override fun store(userEntity: UserEntity) {
+        this.redisCommands.hmset("${USERNAME_PREFIX}${userEntity.userid}",
+                mapOf("username" to userEntity.username, "userid" to userEntity.userid,
+                        "email" to userEntity.email.toString(), "password" to userEntity.password.toString()))
 
     }
 
@@ -88,46 +86,46 @@ class RedisUserRepositoryImpl(redisProperties: RedisProperties) : UserRepository
 //        return listUser
 //    }
 
-    override fun getAll(): MutableList<User>? {
-        val listUser: MutableList<User>? = mutableListOf()
+    override fun getAll(): MutableList<UserEntity>? {
+        val listUserEntity: MutableList<UserEntity>? = mutableListOf()
         val keysList: List<String> = this.redisCommands.keys("*")
 
         for (item in keysList) {
-            val user: User = User()
+            val userEntity: UserEntity = UserEntity()
 
             //各キーで、ハッシュマップを取得する。
             val userList: MutableMap<String, String>? = this.redisCommands.hgetall(item)
 
             if (userList != null) { //ハッシュマップが取得できた場合
 
-                user.userid = checkNotNull(userList["userid"])
-                user.username = checkNotNull(userList["username"])
-                user.email = checkNotNull(userList["email"])
-                user.password = checkNotNull(userList["password"])
+                userEntity.userid = checkNotNull(userList["userid"])
+                userEntity.username = checkNotNull(userList["username"])
+                userEntity.email = checkNotNull(userList["email"])
+                userEntity.password = checkNotNull(userList["password"])
 
-                listUser?.add(user)
+                listUserEntity?.add(userEntity)
             }
         }
-        return listUser
+        return listUserEntity
     }
 
-    override fun findOneById(userid: String): User {
+    override fun findOneById(userid: String): UserEntity {
 
-        val user: User = User()
+        val userEntity: UserEntity = UserEntity()
         val getkey: String = "${USERNAME_PREFIX}${userid}"
         val userList: MutableMap<String, String>? = this.redisCommands.hgetall(getkey)
 
         if (userList != null) { //ハッシュマップが取得できた場合
 
-            user.userid = checkNotNull(userList["userid"])
-            user.username = checkNotNull(userList["username"])
-            user.email = checkNotNull(userList["email"])
-            user.password = checkNotNull(userList["password"])
+            userEntity.userid = checkNotNull(userList["userid"])
+            userEntity.username = checkNotNull(userList["username"])
+            userEntity.email = checkNotNull(userList["email"])
+            userEntity.password = checkNotNull(userList["password"])
         }
-        return user
+        return userEntity
     }
 
-    override fun findOneByEmail(email: String): User {
+    override fun findOneByEmail(email: String): UserEntity {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 

@@ -1,6 +1,8 @@
 package com.whaleservice.domain
 
 
+import com.whaleservice.domain.entity.UserEntity
+import com.whaleservice.infrastructure.UserRepository
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Service
 
@@ -10,13 +12,13 @@ class UserService {
     lateinit var userStore: UserRepository
 
     fun registUser(userid: String, username: String, email: String, password: String) {
-        userStore.store( User(username, userid, password, email))
+        userStore.store(UserEntity(username, userid, password, email))
     }
 
-    fun findall () : MutableList<User>? {
+    fun findall () : MutableList<UserEntity>? {
 
-        var userList : MutableList<User>? = userStore.getAll()
-        return userList
+        var userEntityList : MutableList<UserEntity>? = userStore.getAll()
+        return userEntityList
     }
 
 }

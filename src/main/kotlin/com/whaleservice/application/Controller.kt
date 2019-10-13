@@ -1,72 +1,25 @@
 package com.whaleservice.application
 
 
-import com.whaleservice.domain.Email
-import com.whaleservice.domain.Password
-import com.whaleservice.domain.User
+import com.whaleservice.domain.entity.UserEntity
 import com.whaleservice.domain.UserService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
-import com.whaleservice.infrastructure.FruitProperties
-import com.whaleservice.infrastructure.PlatformProperties
 import com.whaleservice.infrastructure.RedisUserRepositoryImpl
-import com.whaleservice.presentation.Loginform
 import org.springframework.beans.factory.annotation.Autowired
 
 @Controller
-class HelloController {
-
-    //Application.ymlの設定値を取ってくるサンプル
-    @RestController
-    class Controller(
-            val colorProperties: PlatformProperties,
-            val fruitProperties: FruitProperties
-    ) {
-        @GetMapping("colors/red")
-        fun translateColorToJapanese(): String {
-            return colorProperties.red
-        }
-
-        @GetMapping("fruits/price/{fruit}")
-        fun getFruitPrice(@PathVariable fruit: String): String {
-            return "${fruitProperties.prices.get(fruit)}円です"
-        }
-    }
-
-    @RestController
-    @RequestMapping
-    class RedisController {
-        //RestAPIで、Redisにデータをセットするサンプル
-
-        @Autowired
-        lateinit var redisRepository: RedisUserRepositoryImpl
-
-        @Autowired
-        lateinit var usermanagement: UserService
-
-        @GetMapping("/set") //this is a test api
-        fun getTop(): String {
-            redisRepository.redisCommands.setex("foo", 100, "bar")
-            redisRepository.redisCommands.setex("oyoyo", 100, "bar")
-            redisRepository.redisCommands.setex("boo", 100, "bar")
-            return "test"
-        }
-    }
-}
-
-@Controller
-@RequestMapping("/players") // ①
+@RequestMapping("/players")
 class PlayerController(private val userService: UserService) {
-
-
+    
     @Autowired
     lateinit var redisRepository: RedisUserRepositoryImpl
 
     @GetMapping
     fun index(model: Model): String {
-        var userList: MutableList<User>? = userService.findall()
-        model.addAttribute("players", userList)
+        var userEntityList: MutableList<UserEntity>? = userService.findall()
+        model.addAttribute("players", userEntityList)
         return "index"
     }
 
@@ -76,9 +29,9 @@ class PlayerController(private val userService: UserService) {
     }
 
     @PostMapping
-    fun create(@ModelAttribute user: User): String {
-        if (user.userid != null && user.username != null && user.email != null && user.password != null) {
-            userService.registUser(user.userid!!, user.username!!, user.email!!, user.password!!)
+    fun create(@ModelAttribute userEntity: UserEntity): String {
+        if (userEntity.userid != null && userEntity.username != null && userEntity.email != null && userEntity.password != null) {
+            userService.registUser(userEntity.userid!!, userEntity.username!!, userEntity.email!!, userEntity.password!!)
         }
         return "redirect:/players"
     }

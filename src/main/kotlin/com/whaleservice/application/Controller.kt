@@ -12,9 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired
 @Controller
 @RequestMapping("/players")
 class PlayerController(private val userService: UserService) {
-    
-    @Autowired
-    lateinit var redisRepository: RedisUserRepositoryImpl
 
     @GetMapping
     fun index(model: Model): String {
@@ -46,7 +43,7 @@ class PlayerController(private val userService: UserService) {
 //
     @GetMapping("{userid}")
     fun show(@PathVariable userid: String, model: Model): String {
-        model.addAttribute("player", redisRepository.findOneById(userid));
+        model.addAttribute("player", userService.findOneById(userid));
         return "show"
     }
 //

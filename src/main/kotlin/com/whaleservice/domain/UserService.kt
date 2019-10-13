@@ -16,9 +16,11 @@ class UserService {
     }
 
     fun findall () : MutableList<UserEntity>? {
+        return userStore.getAll()
+    }
 
-        var userEntityList : MutableList<UserEntity>? = userStore.getAll()
-        return userEntityList
+    fun findOneById(userid: String) : UserEntity? {
+        return userStore.findOneById(userid)
     }
 
 }

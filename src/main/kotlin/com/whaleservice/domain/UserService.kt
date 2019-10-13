@@ -12,6 +12,7 @@ class UserService {
     lateinit var userStore: UserRepository
 
     fun registUser(userid: String, username: String, email: String, password: String) {
+        //TODO ユーザーID重複チェク
         userStore.store(UserEntity(username, userid, password, email))
     }
 

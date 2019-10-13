@@ -6,12 +6,12 @@ import com.whaleservice.domain.UserService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.*
-import com.whaleservice.infrastructure.RedisUserRepositoryImpl
-import org.springframework.beans.factory.annotation.Autowired
 
 @Controller
 @RequestMapping("/players")
-class PlayerController(private val userService: UserService) {
+class PlayerController(
+        private val userService: UserService
+) {
 
     @GetMapping
     fun index(model: Model): String {
@@ -48,7 +48,6 @@ class PlayerController(private val userService: UserService) {
     }
 //
 
-//
 //        @PutMapping("{id}")
     //        fun update(@PathVariable id: Long, @ModelAttribute player: Player): String {
 //            playerService.save(player.copy(id = id))

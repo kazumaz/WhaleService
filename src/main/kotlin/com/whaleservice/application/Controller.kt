@@ -32,31 +32,29 @@ class PlayerController(
         }
         return "redirect:/players"
     }
+    
+    @GetMapping("{userid}/edit")
+    fun edit(@PathVariable userid: String, model: Model): String {
+        model.addAttribute("player", userService.findOneById(userid));
+        return "edit"
+    }
 
-    //
-//        @GetMapping("{id}/edit")
-//        // ⑤
-//        fun edit(@PathVariable id: Long, model: Model): String {
-//            model.addAttribute("player", playerService.findOne(id));
-//            return "players/edit"
-//        }
-//
     @GetMapping("{userid}")
     fun show(@PathVariable userid: String, model: Model): String {
         model.addAttribute("player", userService.findOneById(userid));
         return "show"
     }
-//
 
+//
 //        @PutMapping("{id}")
-    //        fun update(@PathVariable id: Long, @ModelAttribute player: Player): String {
-//            playerService.save(player.copy(id = id))
+//            fun update(@PathVariable id: Long, @ModelAttribute userEntity: UserEntity): String {
+//            userService.save(player.copy(id = id))
 //            return "redirect:/players"
 //        }
 //
 //        @DeleteMapping("{id}")
 //        fun destroy(@PathVariable id: Long): String {
-//            playerService.delete(id)
+//            userService.delete(id)
 //            return "redirect:/players"
 //        }
 //    }

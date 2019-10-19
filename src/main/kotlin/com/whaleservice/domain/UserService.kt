@@ -24,4 +24,8 @@ class UserService {
         return userStore.findOneById(userid)
     }
 
+    fun deleteUser(userid: String)  {
+        userStore.deleteById(userid)
+    }
+
 }

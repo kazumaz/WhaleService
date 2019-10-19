@@ -7,4 +7,5 @@ interface UserRepository {
     fun findOneById(userid: String): UserEntity
     fun findOneByEmail(email: String): UserEntity
     fun getAll(): MutableList<UserEntity>?
+    fun deleteById(userid: String)
 }

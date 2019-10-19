@@ -129,4 +129,7 @@ class RedisUserRepositoryImpl(redisProperties: RedisProperties) : UserRepository
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
+    override fun deleteById(userid: String) {
+        this.redisCommands.del("${USERNAME_PREFIX}${userid}")
+    }
 }

@@ -28,13 +28,13 @@
             <td th:text="*{password}"></td>
             <!-- ④ -->
             <td><a class="btn btn-default btn-xs" th:href="@{/players/{userid}(userid=*{userid})}">参照</a></td>
-<!--            <td><a class="btn btn-default btn-xs" th:href="@{/players/{id}/edit(id=*{id})}">編集</a></td>-->
-<!--            <td>-->
-<!--                &lt;!&ndash; ⑤ &ndash;&gt;-->
-<!--                <form th:action="@{/players/{id}(id=*{id})}" th:method="delete">-->
-<!--                    <input class="btn btn-default btn-xs" type="submit" value="削除" />-->
-<!--                </form>-->
-<!--            </td>-->
+            <td><a class="btn btn-default btn-xs" th:href="@{/players/{userid}/edit(userid=*{userid})}">編集</a></td>
+            <td>
+                <!-- ⑤ -->
+                <form th:action="@{/players/{userid}(userid=*{userid})}" th:method="delete">
+                    <input class="btn btn-default btn-xs" type="submit" value="削除" />
+                </form>
+            </td>
         </tr>
         </tbody>
     </table>

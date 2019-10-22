@@ -1,6 +1,5 @@
 package com.whaleservice.application
 
-
 import com.whaleservice.domain.entity.UserEntity
 import com.whaleservice.domain.UserService
 import org.springframework.stereotype.Controller
@@ -11,13 +10,13 @@ import javax.validation.Valid
 
 @Controller
 @RequestMapping("/players")
-class PlayerController(
+class Controller(
         private val userService: UserService
 ) {
 
     @GetMapping
     fun index(model: Model): String {
-        var userEntityList: MutableList<UserEntity>? = userService.findall()
+        val userEntityList: MutableList<UserEntity>? = userService.findall()
         model.addAttribute("players", userEntityList)
         return "index"
     }
@@ -30,10 +29,8 @@ class PlayerController(
 
     @PostMapping
     fun create(@Valid @ModelAttribute userEntity: UserEntity, bindingResult: BindingResult): String {
-        if (bindingResult.hasErrors()) return "new";
-        if (userEntity.userid != null && userEntity.username != null && userEntity.email != null && userEntity.password != null) {
-            userService.registUser(userEntity.userid!!, userEntity.username!!, userEntity.email!!, userEntity.password!!)
-        }
+        if (bindingResult.hasErrors()) return "new"
+        userService.registUser(userEntity.userid!!, userEntity.username!!, userEntity.email!!, userEntity.password!!)
         return "redirect:/players"
     }
 
@@ -54,10 +51,8 @@ class PlayerController(
     //this is used ny update
     @PutMapping("{userid}")
     fun update(@PathVariable userid: String, @Valid @ModelAttribute userEntity: UserEntity, bindingResult: BindingResult): String {
-        if (bindingResult.hasErrors()) return "edit";
-        if (userEntity.userid != null && userEntity.username != null && userEntity.email != null && userEntity.password != null) {
-                userService.registUser(userEntity.userid!!, userEntity.username!!, userEntity.email!!, userEntity.password!!)
-        }
+        if (bindingResult.hasErrors()) return "edit"
+        userService.registUser(userEntity.userid!!, userEntity.username!!, userEntity.email!!, userEntity.password!!)
         return "redirect:/players"
     }
 

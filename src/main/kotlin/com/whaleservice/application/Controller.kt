@@ -5,7 +5,9 @@ import com.whaleservice.domain.entity.UserEntity
 import com.whaleservice.domain.UserService
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.validation.BindingResult
 import org.springframework.web.bind.annotation.*
+import javax.validation.Valid
 
 @Controller
 @RequestMapping("/players")
@@ -21,12 +23,14 @@ class PlayerController(
     }
 
     @GetMapping("new")
-    fun newPlayer(): String {
+    fun newPlayer(model: Model): String {
+        model.addAttribute("userEntity", UserEntity())
         return "new"
     }
 
     @PostMapping
-    fun create(@ModelAttribute userEntity: UserEntity): String {
+    fun create(@Valid @ModelAttribute userEntity: UserEntity, bindingResult: BindingResult): String {
+        if (bindingResult.hasErrors()) return "new";
         if (userEntity.userid != null && userEntity.username != null && userEntity.email != null && userEntity.password != null) {
             userService.registUser(userEntity.userid!!, userEntity.username!!, userEntity.email!!, userEntity.password!!)
         }
@@ -49,7 +53,8 @@ class PlayerController(
 
     //this is used ny update
     @PutMapping("{userid}")
-    fun update(@PathVariable userid: String, @ModelAttribute userEntity: UserEntity): String {
+    fun update(@PathVariable userid: String, @Valid @ModelAttribute userEntity: UserEntity, bindingResult: BindingResult): String {
+        if (bindingResult.hasErrors()) return "edit";
         if (userEntity.userid != null && userEntity.username != null && userEntity.email != null && userEntity.password != null) {
                 userService.registUser(userEntity.userid!!, userEntity.username!!, userEntity.email!!, userEntity.password!!)
         }

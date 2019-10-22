@@ -18,34 +18,34 @@ class Controller(
     fun index(model: Model): String {
         val userEntityList: MutableList<UserEntity>? = userService.findall()
         model.addAttribute("players", userEntityList)
-        return "index"
+        return Pages.INDEX.id
     }
 
     @GetMapping("new")
     fun newPlayer(model: Model): String {
         model.addAttribute("userEntity", UserEntity())
-        return "new"
+        return Pages.NEW.id
     }
 
     @PostMapping
     fun create(@Valid @ModelAttribute userEntity: UserEntity, bindingResult: BindingResult): String {
         if (bindingResult.hasErrors()) return "new"
         userService.registUser(userEntity.userid!!, userEntity.username!!, userEntity.email!!, userEntity.password!!)
-        return "redirect:/players"
+        return Pages.REDIRECT_PLAYERS.id
     }
 
     //this is used for detail pages
     @GetMapping("{userid}")
     fun show(@PathVariable userid: String, model: Model): String {
         model.addAttribute("player", userService.findOneById(userid));
-        return "show"
+        return Pages.SHOW.id
     }
 
     //this is used for update pages
     @GetMapping("{userid}/edit")
     fun edit(@PathVariable userid: String, model: Model): String {
         model.addAttribute("player", userService.findOneById(userid));
-        return "edit"
+        return Pages.EDIT.id
     }
 
     //this is used ny update
@@ -53,12 +53,20 @@ class Controller(
     fun update(@PathVariable userid: String, @Valid @ModelAttribute userEntity: UserEntity, bindingResult: BindingResult): String {
         if (bindingResult.hasErrors()) return "edit"
         userService.registUser(userEntity.userid!!, userEntity.username!!, userEntity.email!!, userEntity.password!!)
-        return "redirect:/players"
+        return Pages.REDIRECT_PLAYERS.id
     }
 
     @DeleteMapping("{userid}")
     fun destroy(@PathVariable userid: String): String {
         userService.deleteUser(userid)
-        return "redirect:/players"
+        return Pages.REDIRECT_PLAYERS.id
     }
+}
+
+enum class Pages(val id: String){
+    REDIRECT_PLAYERS("redirect:/players"),
+    EDIT("edit"),
+    SHOW("show"),
+    INDEX("index"),
+    NEW("new")
 }

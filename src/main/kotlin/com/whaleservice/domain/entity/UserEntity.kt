@@ -1,5 +1,4 @@
 package com.whaleservice.domain.entity
-import org.springframework.beans.factory.annotation.Autowired
 import javax.validation.constraints.NotEmpty
 import javax.validation.constraints.Pattern
 import javax.validation.constraints.Size

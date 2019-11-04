@@ -48,7 +48,7 @@ class Controller(
         return Pages.EDIT.id
     }
 
-    //this is used ny update
+    //this is used for update
     @PutMapping("{userid}")
     fun update(@PathVariable userid: String, @Valid @ModelAttribute userEntity: UserEntity, bindingResult: BindingResult): String {
         if (bindingResult.hasErrors()) return "edit"

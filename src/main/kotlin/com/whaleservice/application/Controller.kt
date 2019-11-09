@@ -1,7 +1,9 @@
 package com.whaleservice.application
 
+import com.library.logmessage.log
 import com.whaleservice.domain.entity.UserEntity
 import com.whaleservice.domain.UserService
+import com.whaleservice.infrastructure.InfoMessages
 import org.slf4j.Logger
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
@@ -20,7 +22,7 @@ class Controller(
     fun index(model: Model): String {
         val userEntityList: MutableList<UserEntity>? = userService.findall()
         model.addAttribute("players", userEntityList)
-        log.info("テスト")
+        InfoMessages.TEST_MESSAGE.log("test01" to "test02") { k, v -> log.info(k + v)}
         return Pages.INDEX.id
     }
 

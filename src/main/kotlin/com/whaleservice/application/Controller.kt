@@ -2,6 +2,7 @@ package com.whaleservice.application
 
 import com.whaleservice.domain.entity.UserEntity
 import com.whaleservice.domain.UserService
+import org.slf4j.Logger
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
 import org.springframework.validation.BindingResult
@@ -11,13 +12,15 @@ import javax.validation.Valid
 @Controller
 @RequestMapping("/players")
 class Controller(
-        private val userService: UserService
+        private val userService: UserService,
+        val log : Logger
 ) {
 
     @GetMapping
     fun index(model: Model): String {
         val userEntityList: MutableList<UserEntity>? = userService.findall()
         model.addAttribute("players", userEntityList)
+        log.info("テスト")
         return Pages.INDEX.id
     }
 

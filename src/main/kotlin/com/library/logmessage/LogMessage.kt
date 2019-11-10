@@ -1,5 +1,25 @@
 package com.library.logmessage
 
+/**
+ * This is a log library.
+ * Use as described below.
+ *
+ * Make a message class like "InfoMessages"
+ *
+ * Output log
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * InfoMessages.TEST_MESSAGE.log(
+ *         "ffirst-message" to "first",
+ *         "second-mesasge" to "second"
+ * ) { k, v -> log.info(k + v) }
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ *
+ * Log Image
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ * [WhaleService_I_0001] i am test message  first-message=first,second-mesasge=second
+ * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ */
+
 interface LogMessage {
     val messageId: String
     val message: String

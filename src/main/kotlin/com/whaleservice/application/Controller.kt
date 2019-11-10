@@ -15,19 +15,22 @@ import javax.validation.Valid
 @RequestMapping("/players")
 class Controller(
         private val userService: UserService,
-        val log : Logger
+        val log: Logger
 ) {
 
     @GetMapping
     fun index(model: Model): String {
         val userEntityList: MutableList<UserEntity>? = userService.findall()
         model.addAttribute("players", userEntityList)
-        InfoMessages.TEST_MESSAGE.log("first message" to "first-desu") { k, v -> log.info(k + v)}
-        InfoMessages.TEST_MESSAGE.log("first message" to "first-desu", "second mesasge" to "second-desu") { k, v -> log.error(k + v)}
+        InfoMessages.TEST_MESSAGE.log(
+                "first message" to "first-desu",
+                "second mesasge" to "second-desu"
+        ) { k, v -> log.info(k + v) }
         return Pages.INDEX.id
     }
-    fun test(a: String, b:String): String{
-        return a+a+a+b+b
+
+    fun test(a: String, b: String): String {
+        return a + a + a + b + b
     }
 
     @GetMapping("new")
@@ -72,7 +75,7 @@ class Controller(
     }
 }
 
-enum class Pages(val id: String){
+enum class Pages(val id: String) {
     REDIRECT_PLAYERS("redirect:/players"),
     EDIT("edit"),
     SHOW("show"),

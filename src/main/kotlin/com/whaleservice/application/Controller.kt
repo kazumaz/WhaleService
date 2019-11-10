@@ -29,10 +29,6 @@ class Controller(
         return Pages.INDEX.id
     }
 
-    fun test(a: String, b: String): String {
-        return a + a + a + b + b
-    }
-
     @GetMapping("new")
     fun newPlayer(model: Model): String {
         model.addAttribute("userEntity", UserEntity())

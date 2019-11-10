@@ -3,10 +3,13 @@ This is a simple web service with CRUD.
 (Spring Boot, Redis)
  
 ## Start application
-* run docker `cd Docker` and `docker-compose up`
+* clone whaleservice `git clone https://github.com/kazumaz/whaleservice.git`
+* run docker `cd ./whaleservice/Docker` and `docker-compose up`
+* build application `cd ./whaleservice/` and `./gradlew build`
+* run application `./whaleservice/build/libs/` and `java -jar whaleservice-0.0.1-SNAPSHOT.jar &`
 * access [your local application](http://localhost:8080/players) 
 
-## memo
+## jenkins auto deploy to EC2
 ```
 rm -rf whaleservice/
 sleep 5

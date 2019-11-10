@@ -1,2 +1,6 @@
 # whaleservice
-This is a simple web service with Spring Boot and Redis.
+This is a simple web service with
+ 
+# Use
+Docker, Redis, Springboot
+

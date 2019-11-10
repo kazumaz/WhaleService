@@ -22,8 +22,12 @@ class Controller(
     fun index(model: Model): String {
         val userEntityList: MutableList<UserEntity>? = userService.findall()
         model.addAttribute("players", userEntityList)
-        InfoMessages.TEST_MESSAGE.log("test01" to "test02") { k, v -> log.info(k + v)}
+        InfoMessages.TEST_MESSAGE.log("first message" to "first-desu") { k, v -> log.info(k + v)}
+        InfoMessages.TEST_MESSAGE.log("first message" to "first-desu", "second mesasge" to "second-desu") { k, v -> log.error(k + v)}
         return Pages.INDEX.id
+    }
+    fun test(a: String, b:String): String{
+        return a+a+a+b+b
     }
 
     @GetMapping("new")

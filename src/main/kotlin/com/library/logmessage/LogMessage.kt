@@ -5,10 +5,12 @@ interface LogMessage {
     val message: String
 }
 
-fun LogMessage.log(p: Pair<String, String>, block:(String, String) -> Unit) {
-    block.invoke("[${this.messageId}] ${this.message} ", genMessage(p))
+fun LogMessage.log(vararg p: Pair<String, String>, block: (String, String) -> Unit) {
+    block.invoke("[${this.messageId}] ${this.message} ", genMessage(*p))
 }
 
-fun genMessage(p: Pair<String, String>): String{
-    return "${p.first}=${p.second}"
+fun genMessage(vararg p: Pair<String, String>): String {
+    var message: String = " "
+    p.forEach { element -> message += "${element.first}=${element.second}" + "," }
+    return message.removeSuffix(",")
 }

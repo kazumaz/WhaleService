@@ -6,7 +6,7 @@ package com.library.logmessage
  *
  * Make a message class like "InfoMessages"
  *
- * Output log
+ * Coding image
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * InfoMessages.TEST_MESSAGE.log(
  *         "ffirst-message" to "first",
@@ -14,7 +14,7 @@ package com.library.logmessage
  * ) { k, v -> log.info(k + v) }
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  *
- * Log Image
+ * Output Log Image
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
  * [WhaleService_I_0001] i am test message  first-message=first,second-mesasge=second
  * ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -30,7 +30,7 @@ fun LogMessage.log(vararg p: Pair<String, String>, block: (String, String) -> Un
 }
 
 fun genMessage(vararg p: Pair<String, String>): String {
-    var message: String = " "
+    var message = " "
     p.forEach { element -> message += "${element.first}=${element.second}" + "," }
     return message.removeSuffix(",")
 }

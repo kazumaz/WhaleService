@@ -2,14 +2,14 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8" />
-    <title>Editing Player - baseball</title>
+    <title>Editing User</title>
     <link rel="stylesheet" href="/css/bootstrap.css" />
     <script src="/js/jquery.js"></script>
     <script src="/js/bootstrap.js"></script>
 </head>
 <body>
 <div class="container">
-    <h1>Editing Player</h1>
+    <h1>Editing User</h1>
     <form th:action="@{/players/{userid}(userid=*{userid})}" th:method="put" th:object="${player}">
         <div class="form-group">
             <label class="control-label">ユーザーID</label>

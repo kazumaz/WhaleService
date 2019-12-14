@@ -6,9 +6,6 @@ import org.springframework.boot.runApplication
 //import io.prometheus.client.spring.boot.EnableSpringBootMetricsCollector
 
 @SpringBootApplication
-// 下記はSpring2.0サポートしてなさそう
-//@EnablePrometheusEndpoint
-//@EnableSpringBootMetricsCollector
 class WhaleserviceApplication
 
 fun main(args: Array<String>) {

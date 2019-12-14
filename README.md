@@ -11,7 +11,7 @@ SpringBoot, Redis, Prometheus, Grafana
 
 ## Access Prometheus and Grafana
 * access [Prometheus](http://localhost:9090/)
-* access [Grafana](http://localhost:3000/)
+* access [Grafana](http://localhost:3000/)<br>
 when you connect grafana to prometheus, using http://prometheus:9090 not using http://localhost/3000
 
 ## jenkins auto deploy to EC2

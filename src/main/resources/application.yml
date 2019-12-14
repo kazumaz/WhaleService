@@ -15,3 +15,10 @@ fruits:
 
 redis:
  url: "redis://localhost:6379/0"
+
+# デフォルト値は"/actuator"
+#  curl 'http://localhost:8080/admin/health'
+management:
+ endpoints:
+  web:
+   base-path: /admin

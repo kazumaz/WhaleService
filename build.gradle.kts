@@ -31,6 +31,7 @@ dependencies {
 	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	compile("org.apache.commons:commons-pool2:2.5.0")
 	compile("redis.clients:jedis:2.9.0")
+	compile("org.springframework.boot:spring-boot-starter-actuator")
 }
 
 tasks.withType<KotlinCompile> {

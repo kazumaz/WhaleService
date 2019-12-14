@@ -25,13 +25,17 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	implementation("net.logstash.logback:logstash-logback-encoder:6.1")
 	implementation("io.micrometer:micrometer-registry-prometheus")
+//	implementation("io.prometheus:simpleclient_spring_boot")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
-
 
 	compile("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 	compile("org.apache.commons:commons-pool2:2.5.0")
 	compile("redis.clients:jedis:2.9.0")
 	compile("org.springframework.boot:spring-boot-starter-actuator")
+
+//	compile("io.prometheus:simpleclient_spring_boot:0.2.0")
+//	compile("io.prometheus:simpleclient_servlet:0.0.21")
+//	compile("io.prometheus:simpleclient_hotspot:0.0.21")
 }
 
 tasks.withType<KotlinCompile> {

@@ -1,6 +1,6 @@
 ## Overview
 This is a simple web service with CRUD.<br>
-SpringBoot, Redis, Prometheus, Grafana
+SpringBoot, Redis, Prometheus, Grafana.
 
 ## Start application
 * clone whaleservice `git clone https://github.com/kazumaz/whaleservice.git`

@@ -27,6 +27,7 @@ class CounterController {
         private var num = 0
         //prometheusのアクチュエーターに追加するサンプルコード。ただし、うまくいかない。
         //[https://qiita.com/AHA_oretama/items/984f8f63ac95a7192174]を参考に実施。
+        //[]curl http://localhost:8080/admin/prometheus　で出てこない。
         private val requests: Counter = Counter.build().name("count_requests_total").help("Total count requests.").register()
     }
 
